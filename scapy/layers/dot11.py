@@ -29,7 +29,7 @@ from scapy.config import conf, crypto_validator
 from scapy.data import ETHER_ANY, DLT_IEEE802_11, DLT_PRISM_HEADER, \
     DLT_IEEE802_11_RADIO
 from scapy.compat import raw, orb, chb
-from scapy.packet import Packet, bind_layers, NoPayload
+from scapy.packet import Packet, bind_layers, NoPayload, _PacketMatchSubclass
 from scapy.fields import ByteField, LEShortField, BitField, LEShortEnumField, \
     ByteEnumField, X3BytesField, FlagsField, LELongField, StrField, \
     StrLenField, IntField, XByteField, LEIntField, StrFixedLenField, \
@@ -334,7 +334,7 @@ class Dot11(Packet):
         self.payload = self.payload.payload
 
 
-class Dot11FCS(Dot11):
+class Dot11FCS(Dot11, _PacketMatchSubclass):
     name = "802.11-FCS"
     fields_desc = Dot11.fields_desc + [XLEIntField("fcs", None)]  # Automatically moved to the end of the packet  # noqa: E501
 

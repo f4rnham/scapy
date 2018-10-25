@@ -1005,6 +1005,9 @@ values.
         """
         if _subclass:
             match = lambda cls1, cls2: issubclass(cls1, cls2)
+        elif isinstance(self, _PacketMatchSubclass):
+            match = lambda cls1, cls2: cls1 == cls2 or \
+                cls1 in cls2.__subclasses__()
         else:
             match = lambda cls1, cls2: cls1 == cls2
         if isinstance(cls, int):
@@ -1463,6 +1466,16 @@ class NoPayload(Packet):
 
     def command(self):
         return ""
+
+
+class _PacketMatchSubclass:
+    """Special class enabling getlayer() to match direct parents.
+    Example of usage:
+     >>> pkt = Ether()/IP()/Dot11FCS()
+     >>> pkt[Dot11]
+       <Dot11FCS  |>
+    """
+    pass
 
 ####################
 #  packet classes  #

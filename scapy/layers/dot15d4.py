@@ -18,7 +18,7 @@ from scapy.error import warning
 from scapy.config import conf
 
 from scapy.data import DLT_IEEE802_15_4_WITHFCS, DLT_IEEE802_15_4_NOFCS
-from scapy.packet import Packet, bind_layers
+from scapy.packet import Packet, bind_layers, _PacketMatchSubclass
 from scapy.fields import BitEnumField, BitField, ByteEnumField, ByteField, \
     ConditionalField, Field, LELongField, PacketField, XByteField, \
     XLEIntField, XLEShortField, Emph
@@ -137,7 +137,7 @@ class Dot15d4(Packet):
             return p + pay
 
 
-class Dot15d4FCS(Dot15d4):
+class Dot15d4FCS(Dot15d4, _PacketMatchSubclass):
     '''
     This class is a drop-in replacement for the Dot15d4 class above, except
     it expects a FCS/checksum in the input, and produces one in the output.
