@@ -655,10 +655,10 @@ class NetworkInterface(object):
             return self.cache_mode
         try:
             res = (self.mode() == "monitor")
-            self.cache_mode = res
-            return res
         except Scapy_Exception:
-            return False
+            res = False
+        self.cache_mode = res
+        return res
 
     def setmonitor(self, enable=True):
         """Alias for setmode('monitor') or setmode('managed')
