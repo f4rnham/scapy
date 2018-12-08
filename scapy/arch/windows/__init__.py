@@ -32,7 +32,6 @@ from scapy.utils6 import construct_source_candidate_set
 from scapy.data import ARPHDR_ETHER, load_manuf
 import scapy.modules.six as six
 from scapy.modules.six.moves import input, winreg, UserDict
-from scapy.compat import raw
 from scapy.supersocket import SuperSocket
 
 _winapi_SetConsoleTitle = ctypes.windll.kernel32.SetConsoleTitleW
@@ -258,7 +257,7 @@ def _vbs_exec_code(code, split_tag="@"):
     if not conf.prog.cscript:
         raise OSError("Scapy could not detect cscript !")
     tmpfile = tempfile.NamedTemporaryFile(mode="wb", suffix=".vbs", delete=False)  # noqa: E501
-    tmpfile.write(raw(code))
+    tmpfile.write(code.encode())
     tmpfile.close()
     ps = sp.Popen([conf.prog.cscript, tmpfile.name],
                   stdout=sp.PIPE, stderr=open(os.devnull),
