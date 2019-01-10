@@ -31,7 +31,11 @@ then
   UT_FLAGS+=" -K vcan_socket"
 fi
 
-# Dump Environment (so that we can check PATH, UT_FLAGS, etc.)
-set
+# Flake8/Doc/Codespell/Dist test must be easily readable
+if [[ $TOXENV =! *"flake"*  ]]
+then
+  # Dump Environment (so that we can check PATH, UT_FLAGS, etc.)
+  set
+fi
 
 tox -- $UT_FLAGS
