@@ -331,7 +331,7 @@ class ASN1_BIT_STRING(ASN1_Object):
     def __setattr__(self, name, value):
         if name == "val_readable":
             if isinstance(value, (str, bytes)):
-                val = "".join(binrepr(orb(x)).zfill(8) for x in value)  # noqa: E501
+                val = "".join(binrepr(orb(x)).zfill(8) for x in value)
             else:
                 warning("Invalid val: should be bytes")
                 val = "<invalid val_readable>"
