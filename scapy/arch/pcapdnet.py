@@ -156,7 +156,7 @@ if conf.use_winpcapy:
         elif b"npcap" in version.lower():
             conf.use_npcap = True
             LOOPBACK_NAME = scapy.consts.LOOPBACK_NAME = "Npcap Loopback Adapter"  # noqa: E501
-    except OSError:
+    except (OSError, ImportError):
         conf.use_winpcapy = False
         if conf.interactive:
             log_loading.warning("wpcap.dll is not installed. "
